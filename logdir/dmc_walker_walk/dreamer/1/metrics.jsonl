@@ -1,0 +1,5 @@
+{"step": 1000, "train/return": 58.5, "train/length": 500, "episodes": 1}
+{"step": 2000, "train/return": 32.1875, "train/length": 500, "episodes": 2}
+{"step": 3000, "train/return": 47.78125, "train/length": 500, "episodes": 3}
+{"step": 4000, "train/return": 36.125, "train/length": 500, "episodes": 4}
+{"step": 5000, "train/return": 35.15625, "train/length": 500, "episodes": 5}
