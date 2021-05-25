@@ -1,6 +1,6 @@
 # Dreamer for goal-conditioned environments
 
-<img width="100%" src="observation.png">
+<img src="observation.png">
 
 This code is building upon Dreamer:
 
