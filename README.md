@@ -1,12 +1,8 @@
-# Dream to Control
+# Dreamer for goal-conditioned environments
 
-**NOTE:** Check out the code for [DreamerV2](https://github.com/danijar/dreamerv2), which supports both Atari and DMControl environments.
+<img width="100%" src="observation.png">
 
-Fast and simple implementation of the Dreamer agent in TensorFlow 2.
-
-<img width="100%" src="https://imgur.com/x4NUHXl.gif">
-
-If you find this code useful, please reference in your paper:
+This code is building upon Dreamer:
 
 ```
 @article{hafner2019dreamer,
@@ -16,23 +12,6 @@ If you find this code useful, please reference in your paper:
   year={2019}
 }
 ```
-
-## Method
-
-![Dreamer](https://imgur.com/JrXC4rh.png)
-
-Dreamer learns a world model that predicts ahead in a compact feature space.
-From imagined feature sequences, it learns a policy and state-value function.
-The value gradients are backpropagated through the multi-step predictions to
-efficiently learn a long-horizon policy.
-
-- [Project website][website]
-- [Research paper][paper]
-- [Official implementation][code] (TensorFlow 1)
-
-[website]: https://danijar.com/dreamer
-[paper]: https://arxiv.org/pdf/1912.01603.pdf
-[code]: https://github.com/google-research/dreamer
 
 ## Instructions
 
@@ -49,7 +28,7 @@ pip3 install --user matplotlib
 Train the agent:
 
 ```
-python3 dreamer.py --logdir ./logdir/dmc_walker_walk/dreamer/1 --task dmc_walker_walk
+python3 dreamer.py --logdir ./logdir/fetch-reach-v1/dreamer/1 --task robotics_FetchReach-v1
 ```
 
 Generate plots:
