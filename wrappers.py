@@ -158,7 +158,7 @@ class Robotics:
     @property
     def observation_space(self):
         spaces = {}
-        for key, value in self._env.observation_spec().items():
+        for key, value in self._env.observation_space:
             spaces[key] = gym.spaces.Box(
                 -np.inf, np.inf, value.shape, dtype=np.float32)
         spaces['image'] = gym.spaces.Box(
@@ -173,7 +173,6 @@ class Robotics:
         time_step = self._env.step(action)
         obs = time_step[0]
         obs['image'] = self.render()
-        self.render('rgb_array')
         reward = time_step[1] or 0
         done = time_step[2]
         info = time_step[3]
@@ -183,14 +182,19 @@ class Robotics:
         time_step = self._env.reset()
         obs = time_step
         obs['image'] = self.render()
-        self.render('rgb_array')
         return obs
 
     def render(self, *args, **kwargs):
-        image = self._env.render(mode='rgb_array')
-        image = np.array(Image.fromarray(image).resize(self._size, Image.BILINEAR))
+        image = self._env.render(mode='rgb_array', width=self._size[0], height=self._size[1])
+        # image = np.array(Image.fromarray(image).resize(self._size, Image.BILINEAR))
         image = np.clip(image, 0, 255).astype(np.uint8)
         return image
+
+    def combine(self, image, goal_image):
+        pass
+
+    def save(self, array):
+        Image.fromarray(array).save("image.png", "PNG")
 
 
 class Collect:
