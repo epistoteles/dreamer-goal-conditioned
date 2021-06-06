@@ -1,0 +1,10 @@
+name: dreamer-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+   - python=3.8
+   - pip
+   - git
+   - pip:
+       - -r file:requirements.txt

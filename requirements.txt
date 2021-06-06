@@ -1,0 +1,7 @@
+tensorflow-gpu==2.2.0
+tensorflow_probability
+mujoco_py==2.0.2.8
+gym
+dm-control
+pandas
+matplotlib
