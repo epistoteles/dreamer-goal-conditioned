@@ -5,3 +5,6 @@ gym
 dm-control
 pandas
 matplotlib
+stable_baselines3
+pyaml
+click
