@@ -39,10 +39,10 @@ def define_config():
     config.gpu_growth = True
     config.precision = 16
     # Environment.
-    config.task = 'dmc_FetchReach-v1'
+    config.task = 'robotics_FetchReach-v1'
     config.envs = 1
     config.parallel = 'none'
-    config.action_repeat = 2
+    config.action_repeat = 1
     config.time_limit = 1000
     config.prefill = 5000
     config.eval_noise = 0.0
@@ -61,7 +61,7 @@ def define_config():
     config.weight_decay = 0.0
     config.weight_decay_pattern = r'.*'
     # Training.
-    config.batch_size = 50
+    config.batch_size = 100
     config.batch_length = 50
     config.train_every = 1000
     config.train_steps = 100
@@ -163,7 +163,9 @@ class Dreamer(tools.Module):
             image_pred = self._decode(feat)
             reward_pred = self._reward(feat)
             likes = tools.AttrDict()
-            likes.image = tf.reduce_mean(image_pred.log_prob(data['image']))
+            # print(image_pred.log_prob(data['image']).shape)  # TODO: delete this debug line
+            # print(image_pred.log_prob(data['image']))  # TODO: delete this debug line
+            likes.image = tf.reduce_mean(image_pred.log_prob(data['image']))  # TODO: weight red channel stronger? -> not needed
             likes.reward = tf.reduce_mean(reward_pred.log_prob(data['reward']))
             if self._c.pcont:
                 pcont_pred = self._pcont(feat)
@@ -308,6 +310,7 @@ class Dreamer(tools.Module):
         model = tf.concat([recon[:, :5] + 0.5, openl + 0.5], 1)
         error = (model - truth + 1) / 2
         openl = tf.concat([truth, model, error], 2)
+        print(f'Writing image summary with step {tf.summary.experimental.get_step()}')  # TODO delete this debug line
         tools.graph_summary(
             self._writer, tools.video_summary, 'agent/openl', openl)
 

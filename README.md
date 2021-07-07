@@ -15,15 +15,21 @@ This code is building upon Dreamer:
 
 ## Instructions
 
-Get dependencies:
+Create conda environment with all dependencies:
+```
+conda env create --file conda-env.yml
+```
+This already installs the requirements in `requirements.txt` for you. Make sure you have MuJoCo set up on your machine beforehand (typically in /home/yourname/.mujoco/mujoco_200/). This is not done by conda for you!
+Besides the steps in the MoJoCo documentation, I also had to run:
 
 ```
-pip3 install --user tensorflow-gpu==2.2.0
-pip3 install --user tensorflow_probability
-pip3 install --user git+git://github.com/deepmind/dm_control.git
-pip3 install --user pandas
-pip3 install --user matplotlib
+export LD_LIBRARY_PATH=$HOME/.mujoco/mujoco200/bin:$LD_LIBRARY_PATH
+export MUJOCO_PY_MJPRO_PATH=$HOME/.mujoco/mujoco200/
+export MUJOCO_PY_MJKEY_PATH=$HOME/.mujoco/mjkey.txt
+sudo apt install libosmesa6-dev
 ```
+
+Maybe libosmesa6-dev could be included inside `conda-env.yml`, but I could not find a suitable channel for it.
 
 Train the agent:
 

@@ -152,7 +152,7 @@ class Robotics:
     def __init__(self, name, size=(64, 64)):
         import gym
         with self.LOCK:
-            self._env = gym.make(name)
+            self._env = gym.make(name, reward_type='sparse')  # TODO: Reward type dense or sparse
             self._size = size
 
     @property
@@ -185,10 +185,14 @@ class Robotics:
         return obs
 
     def render(self, *args, **kwargs):
-        image = self._env.render(mode='rgb_array', width=self._size[0], height=self._size[1])
+        # image = self._env.render(mode='rgb_array', width=128, height=128)  # fetch reach env
+        # image = Image.fromarray(image).crop((28, 22, 28+self._size[0], 22+self._size[1]))  # fetch reach env
+        image = self._env.render(mode='rgb_array', width=90, height=90)  # hand reach env
+        image = Image.fromarray(image).crop((30, 15, 30+self._size[0], 15+self._size[1]))  # fetch reach env
         # image = np.array(Image.fromarray(image).resize(self._size, Image.BILINEAR))
-        image = np.clip(image, 0, 255).astype(np.uint8)
-        return image
+        # image = np.clip(image, 0, 255).astype(np.uint8)
+        self.save(np.array(image))  # Uncomment this line if you want to save an image locally
+        return np.array(image)
 
     def combine(self, image, goal_image):
         pass
