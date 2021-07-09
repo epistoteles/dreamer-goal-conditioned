@@ -11,10 +11,10 @@ from PIL import Image
 class Robotics:
     LOCK = threading.Lock()
 
-    def __init__(self, name, size=(64, 64)):
+    def __init__(self, name, reward_type='dense', size=(64, 64)):
         import gym
         with self.LOCK:
-            self._env = gym.make(name, reward_type='dense')  # TODO: Reward type dense or sparse
+            self._env = gym.make(name, reward_type=reward_type)  # TODO: Reward type dense or sparse
             self._size = size
 
     @property
@@ -23,9 +23,11 @@ class Robotics:
         for key in self._env.observation_space:
              spaces[key] = gym.spaces.Box(
                  -np.inf, np.inf, self._env.observation_space[key].shape, dtype=np.float32)
-        spaces['observation'] = gym.spaces.Box(
+        spaces['image'] = gym.spaces.Box(
             0, 255, self._size + (3,), dtype=np.uint8)
-        return gym.spaces.Dict(spaces)
+        # return gym.spaces.Dict(spaces)
+        return gym.spaces.Box(
+            0, 255, self._size + (3,), dtype=np.uint8)
 
     @property
     def action_space(self):
@@ -42,17 +44,19 @@ class Robotics:
     def step(self, action):
         time_step = self._env.step(action)
         obs = time_step[0]
-        obs['observation'] = self.render()
+        obs['image'] = self.render()
         reward = time_step[1] or 0
         done = time_step[2]
         info = time_step[3]
-        return obs, reward, done, info
+        # return obs, reward, done, info
+        return obs['image'], reward, done, info
 
     def reset(self):
         time_step = self._env.reset()
         obs = time_step
-        obs['observation'] = self.render()
-        return obs
+        obs['image'] = self.render()
+        # return obs
+        return obs['image']
 
     def render(self, *args, **kwargs):
         image = self._env.render(mode='rgb_array', width=128, height=128)  # fetch reach env

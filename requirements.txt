@@ -8,3 +8,4 @@ matplotlib
 stable_baselines3
 pyaml
 click
+wandb
