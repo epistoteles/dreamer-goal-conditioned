@@ -152,7 +152,7 @@ class Robotics:
     def __init__(self, name, size=(64, 64)):
         import gym
         with self.LOCK:
-            self._env = gym.make(name, reward_type='sparse')  # TODO: Reward type dense or sparse
+            self._env = gym.make(name, reward_type='sparse')  # TODO: Change reward type here to dense or sparse
             self._size = size
 
     @property
@@ -173,8 +173,8 @@ class Robotics:
         time_step = self._env.step(action)
         obs = time_step[0]
         obs['image'] = self.render()
-        reward = time_step[1] or 0
         done = time_step[2]
+        reward = time_step[1] if not done else 1
         info = time_step[3]
         return obs, reward, done, info
 
