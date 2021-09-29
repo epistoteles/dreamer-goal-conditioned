@@ -1,9 +1,10 @@
-# Dreamer for goal-conditioned environments
+<h1 align="center">Dreaming in goal-conditioned environments</h1>
 
-<img src="arm-cropped-bigger.png">
+<p align="center">
+  <img width="500px" src="encdec-final.gif">
+</p>
 
-This code is building upon Dreamer:
-
+This code is building upon the model-based reinforcement learning agent _Dreamer_:
 ```
 @article{hafner2019dreamer,
   title={Dream to Control: Learning Behaviors by Latent Imagination},
@@ -12,10 +13,11 @@ This code is building upon Dreamer:
   year={2019}
 }
 ```
+Specifically, it extends the [implementation](https://github.com/danijar/dreamer) by first author [Danijar Hafner](https://github.com/danijar) to also work on robotic goal-conditioned OpenAI gym environments, such as [FetchReach-v1](https://gym.openai.com/envs/FetchReach-v1/). Read more about the goal-conditioned environment suite in [this](https://openai.com/blog/ingredients-for-robotics-research/) OpenAI blog post.
 
 ## Instructions
 
-Create conda environment with all dependencies:
+Create the conda environment with all dependencies:
 ```
 conda env create --file conda-env.yml
 conda activate dreamer-env
@@ -30,7 +32,7 @@ export MUJOCO_PY_MJKEY_PATH=$HOME/.mujoco/mjkey.txt
 sudo apt install libosmesa6-dev
 ```
 
-Maybe libosmesa6-dev could be included inside `conda-env.yml`, but I could not find a suitable channel for it.
+Maybe libosmesa6-dev could be included inside `conda-env.yml`, but I was not able to find a suitable channel for it.
 
 Train the agent using the specified logdir and robotics environment:
 
