@@ -6,11 +6,15 @@
 
 This code is building upon the model-based reinforcement learning agent _Dreamer_:
 ```
-@article{hafner2019dreamer,
-  title={Dream to Control: Learning Behaviors by Latent Imagination},
-  author={Hafner, Danijar and Lillicrap, Timothy and Ba, Jimmy and Norouzi, Mohammad},
-  journal={arXiv preprint arXiv:1912.01603},
-  year={2019}
+@inproceedings{Dreamer,
+  author    = {Danijar Hafner and
+               Timothy P. Lillicrap and
+               Jimmy Ba and
+               Mohammad Norouzi},
+  title     = {Dream to Control: Learning Behaviors by Latent Imagination},
+  booktitle = {8th International Conference on Learning Representations, {ICLR} 2020,
+               Addis Ababa, Ethiopia, April 26-30, 2020},
+  year      = {2020}
 }
 ```
 Specifically, it extends the [implementation](https://github.com/danijar/dreamer) by first author [Danijar Hafner](https://github.com/danijar) to also work on robotic goal-conditioned OpenAI gym environments, such as [FetchReach-v1](https://gym.openai.com/envs/FetchReach-v1/). Read more about the goal-conditioned environment suite in [this](https://openai.com/blog/ingredients-for-robotics-research/) OpenAI blog post.
